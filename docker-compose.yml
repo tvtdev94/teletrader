@@ -1,0 +1,19 @@
+version: '3.8'
+
+services:
+  telegram-bot:
+    build: .
+    container_name: telegram-trading-bot
+    env_file:
+      - .env
+    restart: unless-stopped
+    volumes:
+      - ./logs:/app/logs
+    networks:
+      - trading-network
+
+networks:
+  trading-network:
+    external: true
+    # Hoặc tạo network mới nếu chưa có:
+    # driver: bridge

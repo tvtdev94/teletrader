@@ -2,7 +2,7 @@
 
 Telegram bot để quản lý và điều khiển hệ thống trading.
 
-## Features
+## ✨ Features
 
 - 🔐 Authentication với whitelist user IDs
 - 🌐 Bilingual support (VI/EN)
@@ -11,36 +11,44 @@ Telegram bot để quản lý và điều khiển hệ thống trading.
 - 🎛️ Management: cancel orders, close positions, pause/resume
 - 📈 Statistics: P&L, win rate
 
-## Setup
+## 🚀 Quick Start
 
-### 1. Install dependencies
+### Option 1: Python (Recommended for Development)
 
 ```bash
+# 1. Create virtual environment
+python -m venv venv
+source venv/bin/activate  # Linux/Mac
+# venv\Scripts\activate   # Windows
+
+# 2. Install dependencies
 pip install -r requirements.txt
-```
 
-### 2. Configure environment
-
-Copy `.env.example` to `.env` and update:
-
-```bash
+# 3. Configure
 cp .env.example .env
-```
+# Edit .env with your credentials
 
-Edit `.env`:
-```env
-TELEGRAM_BOT_TOKEN=your_bot_token_here
-ALLOWED_USER_IDS=your_telegram_user_id
-TRADING_API_URL=http://your-trading-system.com/api
-TRADING_API_KEY=your_api_key
-DEFAULT_LANGUAGE=vi
-```
-
-### 3. Run bot
-
-```bash
+# 4. Run
 python bot/main.py
 ```
+
+📖 **Chi tiết:** [docs/SETUP.md](docs/SETUP.md)
+
+### Option 2: Docker (Recommended for Production)
+
+```bash
+# 1. Configure
+cp .env.example .env
+# Edit .env
+
+# 2. Run
+docker-compose up -d
+
+# 3. View logs
+docker-compose logs -f
+```
+
+🐳 **Chi tiết:** [docs/DOCKER.md](docs/DOCKER.md)
 
 ## Commands
 
@@ -87,26 +95,47 @@ Your Trading System must expose these endpoints:
 - `GET /api/system/status`
 - `GET /api/stats?period=today|week|month`
 
-## Project Structure
+## 📂 Project Structure
 
 ```
 teletrader/
 ├── bot/
 │   ├── handlers/          # Command handlers
 │   ├── keyboards/         # Inline keyboards
-│   └── middleware/        # Auth, etc.
+│   ├── middleware/        # Auth, etc.
+│   └── main.py           # Entry point
 ├── config/
-│   ├── settings.py        # Config
+│   ├── settings.py        # Config loader
 │   └── messages.py        # Bilingual messages
 ├── services/
 │   └── trading_api.py     # API client
 ├── utils/
 │   └── decorators.py      # Helpers
-├── .env.example           # Config template
-├── requirements.txt       # Dependencies
-└── README_FEATURE.md      # Feature checklist
+├── docs/
+│   ├── SETUP.md          # Setup guide (venv, etc.)
+│   ├── DOCKER.md         # Docker guide
+│   └── FEATURES.md       # Feature checklist
+├── .env.example          # Config template
+├── requirements.txt      # Dependencies
+├── Dockerfile            # Docker image
+└── docker-compose.yml    # Docker Compose
 ```
 
-## Development
+## 📚 Documentation
 
-See [README_FEATURE.md](README_FEATURE.md) for feature checklist.
+- **[Setup Guide](docs/SETUP.md)** - Hướng dẫn cài đặt chi tiết (venv, Telegram bot setup, troubleshooting)
+- **[Docker Guide](docs/DOCKER.md)** - Deploy với Docker, network config, production setup
+- **[Features](docs/FEATURES.md)** - Feature checklist và development progress
+
+## 🛠️ Development
+
+1. Fork/clone repo
+2. Setup theo [docs/SETUP.md](docs/SETUP.md)
+3. Check [docs/FEATURES.md](docs/FEATURES.md) để biết features đã implement
+4. Tạo Pull Request
+
+## 📝 Notes
+
+- Bot chỉ response khi nhận command (không có auto notifications)
+- Cần Trading System API đang chạy để bot hoạt động
+- Chỉ whitelist user IDs mới được dùng bot
